@@ -56,6 +56,7 @@ void free_circular_buffer(CircularBuffer *c) {
 
 int main() {
   CircularBuffer ring_buffer = create_circular_buffer(10);
+
   // simple test
   int value = 60;
   while (write_into_buffer(&ring_buffer, value++));
