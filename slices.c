@@ -13,7 +13,7 @@ Slice *make_slice(size_t len) {
   d->arr = malloc(len * sizeof(int));
   // check if malloc failed
   if (d == NULL || d->arr == NULL) {
-    perror("Failed to allocate memory.");
+    perror("Error: Failed to allocate memory.");
     exit(EXIT_FAILURE);
   }
   d->len = 0;
@@ -31,7 +31,7 @@ void append(Slice *d, int el) {
     d->arr = realloc(d->arr, d->cap * sizeof(int));
     // check if realloc failed
     if (d->arr == NULL) {
-      perror("Failed to reallocate memory.");
+      perror("Error: Failed to reallocate memory.");
       exit(EXIT_FAILURE);
     }
   }
@@ -50,7 +50,6 @@ Slice *reslice(Slice *d, size_t low, size_t high) {
   Slice *slice = make_slice(len);
   copy(slice, d, low, high);
   return slice;
-
 }
 
 void free_slice(Slice *d) {
