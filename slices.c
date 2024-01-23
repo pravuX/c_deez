@@ -38,6 +38,21 @@ void append(Slice *d, int el) {
   d->arr[d->len++] = el;
 }
 
+void copy(Slice *to, Slice *from, size_t low, size_t high) {
+  for (int i = low; i < high; i++) {
+    append(to, from->arr[i]);
+  }
+}
+
+Slice *reslice(Slice *d, size_t low, size_t high) {
+  // [low, high)
+  size_t len = high - low;
+  Slice *slice = make_slice(len);
+  copy(slice, d, low, high);
+  return slice;
+
+}
+
 void free_slice(Slice *d) {
   free(d->arr);
   free(d);
@@ -51,15 +66,24 @@ void show_slice(Slice *d) {
     if (i == d->len - 1)
       putchar('}');
   }
+  printf("len = %zu, cap = %zu\n", d->len, d->cap);
 }
 
 int main(void) {
-  Slice *A = make_slice(1);
+  Slice *A = make_slice(5);
   for (int i = 0; i < 10; i++) {
     append(A, i);
   }
+  Slice *Rs_1 = reslice(A, 5, A->len);
+  Slice *Rs_2 = reslice(Rs_1, 1, 3);
+  for (int i = 0; i < 5; i++) {
+    append(Rs_1, i);
+  }
   show_slice(A);
-  // { 0 1 2 3 4 5 6 7 8 9 }
+  show_slice(Rs_1);
+  show_slice(Rs_2);
   free_slice(A);
+  free_slice(Rs_1);
+  free_slice(Rs_2);
   return 0;
 }
