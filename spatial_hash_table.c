@@ -1,7 +1,5 @@
-#include <raymath.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #define WINDOW_WIDTH 300
 #define WINDOW_HEIGHT 300
 #define NO_OBJECTS 10
